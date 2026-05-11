@@ -1,118 +1,102 @@
+# ==========================================
+# INTERACTIVE PYTHON REACT AGENT
+# RAILWAY TRACKING SYSTEM
+# ==========================================
 
-# Railway ReAct Agent
+# ---------- DUMMY TRAIN DATABASE ----------
+trains = [
+    {"train_no": "12001", "name": "Shatabdi Express", "from": "Delhi", "to": "Bhopal", "status": "Running On Time", "current_station": "Agra"},
+    {"train_no": "12002", "name": "Rajdhani Express", "from": "Mumbai", "to": "Delhi", "status": "Delayed by 20 mins", "current_station": "Kota"},
+    {"train_no": "12003", "name": "Duronto Express", "from": "Kolkata", "to": "Delhi", "status": "Running On Time", "current_station": "Kanpur"},
+    {"train_no": "12004", "name": "Garib Rath", "from": "Chennai", "to": "Bangalore", "status": "Arrived", "current_station": "Bangalore"},
+    {"train_no": "12005", "name": "Intercity Express", "from": "Hyderabad", "to": "Vijayawada", "status": "Running Late", "current_station": "Warangal"},
+    {"train_no": "12006", "name": "Kerala Express", "from": "Trivandrum", "to": "Delhi", "status": "Running On Time", "current_station": "Kochi"},
+    {"train_no": "12007", "name": "Mangalore Mail", "from": "Mangalore", "to": "Chennai", "status": "Delayed by 15 mins", "current_station": "Kannur"},
+    {"train_no": "12008", "name": "Tejas Express", "from": "Goa", "to": "Mumbai", "status": "Running On Time", "current_station": "Ratnagiri"},
+    {"train_no": "12009", "name": "Jan Shatabdi", "from": "Pune", "to": "Nagpur", "status": "Cancelled", "current_station": "No Service"},
+    {"train_no": "12010", "name": "Vande Bharat", "from": "Delhi", "to": "Varanasi", "status": "Running On Time", "current_station": "Prayagraj"},
+]
 
-## Project Overview
 
-This project demonstrates a minimal Python ReAct Agent for a Railway Tracking System.
+# ---------- TOOL ----------
+def railway_tracking_tool(train_number):
 
-The agent:
-- Accepts user queries
-- Thinks step-by-step
-- Calls a tool
-- Returns final railway tracking information
+    for train in trains:
+        if train["train_no"] == train_number:
+            return train
 
-The project uses 10 dummy train datasets.
+    return None
 
----
 
-# Folder Structure
+# ---------- REACT AGENT ----------
+def react_agent(user_query):
 
-/Railway-ReAct-Agent
-│
-├── /src
-│   └── railway_react_agent.py
-│
-├── /screenshots
-│   ├── output1.png
-│   ├── output2.png
-│   └── output3.png
-│
-├── README.md
-│
-└── requirements.txt
+    print("\n==============================")
+    print("USER QUERY:")
+    print(user_query)
+    print("==============================\n")
 
----
+    # THOUGHT
+    print("Thought:")
+    print("User wants railway tracking information.")
+    print("I should extract the train number and call the railway tracking tool.\n")
 
-# Tools Used
+    # EXTRACT TRAIN NUMBER
+    words = user_query.split()
 
-- Python
-- Google Colab
-- ReAct Agent Pattern
+    train_number = None
 
----
+    for word in words:
+        if word.isdigit():
+            train_number = word
+            break
 
-# Features
+    # ACTION
+    print("Action:")
+    print(f"Calling railway_tracking_tool('{train_number}')\n")
 
-- Interactive train search
-- Railway tracking tool
-- ReAct reasoning steps
-- Dummy railway database
-- Continuous search option
+    # OBSERVATION
+    observation = railway_tracking_tool(train_number)
 
----
+    print("Observation:")
+    print(observation)
+    print()
 
-# How to Run
+    # FINAL ANSWER
+    print("Final Answer:")
 
-## Step 1
+    if observation is None:
+        print("Train not found.\n")
+    else:
+        print(f'''
+Train Number   : {observation['train_no']}
+Train Name     : {observation['name']}
+From           : {observation['from']}
+To             : {observation['to']}
+Current Station: {observation['current_station']}
+Status         : {observation['status']}
+''')
 
-Open Google Colab:
 
-https://colab.research.google.com
+# ---------- MAIN LOOP ----------
+while True:
 
-## Step 2
+    print("\nAvailable Train Numbers:")
+    for t in trains:
+        print(t["train_no"], "-", t["name"])
 
-Upload or paste:
+    user_input = input("\nEnter Train Number (or type exit): ")
 
-src/railway_react_agent.py
+    if user_input.lower() == "exit":
+        print("\nExiting Railway Tracking Agent...")
+        break
 
-## Step 3
+    query = f"Track train {user_input}"
 
-Run the Python file
+    react_agent(query)
 
-## Step 4
+    again = input("\nDo you want to search again? (yes/no): ")
 
-Enter train number
-
-Example:
-
-12006
-
-## Step 5
-
-View railway tracking result
-
----
-
-# Sample Query
-
-Track train 12006
-
----
-
-# Sample Output
-
-Train Number   : 12006
-Train Name     : Kerala Express
-From           : Trivandrum
-To             : Delhi
-Current Station: Kochi
-Status         : Running On Time
-
----
-
-# Observations
-
-- ReAct pattern helps agents think step-by-step
-- Tool calling makes the system modular
-- Dummy railway data simulates real-world train tracking
-- The agent can continuously accept new queries
-
----
-
-# Future Improvements
-
-- Add live railway API
-- Add station search
-- Add ETA prediction
-- Add GUI interface
-- Connect with database
+    if again.lower() != "yes":
+        print("\nThank you for using Railway Tracking Agent.")
+        break
