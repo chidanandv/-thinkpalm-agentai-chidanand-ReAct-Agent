@@ -1,5 +1,3 @@
-# -thinkpalm-agentai-chidanand-ReAct-Agent
-
 # Railway ReAct Agent
 
 ## Name
@@ -37,3 +35,50 @@ This project demonstrates:
 - Step-by-step reasoning
 - Interactive command-line execution
 - Railway tracking simulation
+
+---
+
+# How to Run
+
+## Step 1
+Open Google Colab or any Python IDE.
+
+## Step 2
+Upload or copy the file:
+
+src/railway_react_agent.py
+
+## Step 3
+Run the Python program.
+
+## Step 4
+Enter a train number when prompted.
+
+Example:
+
+12006
+
+## Step 5
+View the train tracking result.
+
+## Step 6
+Choose whether to search again or exit the program.
+
+---
+
+# Tools Used
+
+- Python
+- Google Colab
+- ReAct Agent Pattern
+- Dummy Railway Dataset
+
+---
+
+# Observations
+
+- ReAct agents improve problem-solving by thinking step-by-step.
+- Tool calling makes the application modular and reusable.
+- Dummy railway data helps simulate real-world train tracking.
+- Interactive input allows continuous searching without restarting the program.
+- The project demonstrates the basic workflow of an AI agent system.
